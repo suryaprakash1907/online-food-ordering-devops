@@ -2,10 +2,6 @@ pipeline {
 
     agent any
 
-    tools {
-        sonarQube 'SonarScanner'
-    }
-
     environment {
         SCANNER_HOME = tool 'SonarScanner'
     }
@@ -40,10 +36,11 @@ pipeline {
             steps {
                 withSonarQubeEnv('SonarQube') {
                     sh """
-                    ${SCANNER_HOME}/bin/sonar-scanner \
-                    -Dsonar.projectKey=online-food-ordering-devops \
-                    -Dsonar.projectName=online-food-ordering-devops \
-                    -Dsonar.sources=app
+                        ${SCANNER_HOME}/bin/sonar-scanner \
+                        -Dsonar.projectKey=online-food-ordering-devops \
+                        -Dsonar.projectName=online-food-ordering-devops \
+                        -Dsonar.projectVersion=1.0 \
+                        -Dsonar.sources=app
                     """
                 }
             }
@@ -54,5 +51,7 @@ pipeline {
                 sh 'docker images'
             }
         }
+
     }
+
 }
