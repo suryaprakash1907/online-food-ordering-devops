@@ -2,11 +2,19 @@ pipeline {
 
     agent any
 
+    tools {
+        sonarQube 'SonarScanner'
+    }
+
+    environment {
+        SCANNER_HOME = tool 'SonarScanner'
+    }
+
     stages {
 
         stage('Checkout') {
             steps {
-                echo 'Source Code Ready'
+                checkout scm
             }
         }
 
@@ -28,12 +36,20 @@ pipeline {
             }
         }
 
-        stage('Docker Images') {
+        stage('SonarQube Scan') {
             steps {
-                sh 'docker images'
+                withSonarQubeEnv('SonarQube') {
+                    sh '''
+                    ${SCANNER_HOME}/bin/sonar-scanner \
+                    -Dsonar.projectKey=online-food-ordering-devops \
+                    -Dsonar.projectName=online-food-ordering-devops \
+                    -Dsonar.sources=app \
+                    -Dsonar.host.url=$SONAR_HOST_URL \
+                    -Dsonar.token=$SONAR_AUTH_TOKEN
+                    '''
+                }
             }
         }
 
     }
-
 }
