@@ -1,0 +1,467 @@
+/* ===========================================
+   Foodie's Hub
+   Theme : Yellow & Violet
+=========================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    scroll-behavior:smooth;
+}
+
+body{
+    font-family:'Poppins',sans-serif;
+    background:#f8f9fc;
+    color:#333;
+}
+
+/* ================= NAVBAR ================= */
+
+.navbar{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:18px 8%;
+    background:#ffffff;
+    box-shadow:0 4px 15px rgba(0,0,0,.08);
+    position:sticky;
+    top:0;
+    z-index:999;
+}
+
+.logo{
+    font-size:28px;
+    font-weight:700;
+    color:#6D28D9;
+}
+
+nav a{
+    text-decoration:none;
+    margin-left:30px;
+    color:#333;
+    font-weight:600;
+    transition:.3s;
+}
+
+nav a:hover,
+nav a.active{
+    color:#6D28D9;
+}
+
+/* ================= HERO ================= */
+
+.hero{
+
+    min-height:85vh;
+
+    background:linear-gradient(rgba(0,0,0,.55),rgba(0,0,0,.55)),
+    url("../images/placeholder.jpg");
+
+    background-size:cover;
+    background-position:center;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    text-align:center;
+}
+
+.hero-content{
+
+    color:#fff;
+
+}
+
+.hero h1{
+
+    font-size:55px;
+
+    margin-bottom:20px;
+
+}
+
+.hero p{
+
+    font-size:22px;
+
+    margin-bottom:35px;
+
+}
+
+.btn{
+
+    display:inline-block;
+
+    padding:15px 40px;
+
+    background:#FACC15;
+
+    color:#222;
+
+    border-radius:50px;
+
+    text-decoration:none;
+
+    font-weight:600;
+
+    transition:.3s;
+
+}
+
+.btn:hover{
+
+    background:#6D28D9;
+
+    color:white;
+
+    transform:translateY(-3px);
+
+}
+
+/* ================= SECTION ================= */
+
+section{
+
+    padding:70px 8%;
+
+}
+
+section h2{
+
+    text-align:center;
+
+    font-size:36px;
+
+    color:#6D28D9;
+
+    margin-bottom:50px;
+
+}
+
+/* ================= FOOD CARDS ================= */
+
+.food-container{
+
+    display:grid;
+
+    grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+
+    gap:30px;
+
+}
+
+.food-card{
+
+    background:#fff;
+
+    border-radius:20px;
+
+    overflow:hidden;
+
+    box-shadow:0 10px 25px rgba(0,0,0,.08);
+
+    transition:.3s;
+
+    text-align:center;
+
+    padding-bottom:20px;
+
+}
+
+.food-card:hover{
+
+    transform:translateY(-10px);
+
+}
+
+.food-card img{
+
+    width:100%;
+
+    height:220px;
+
+    object-fit:cover;
+
+}
+
+.food-card h3{
+
+    margin-top:20px;
+
+    color:#6D28D9;
+
+}
+
+.food-card p{
+
+    padding:10px 20px;
+
+    color:#666;
+
+}
+
+/* ================= WHY US ================= */
+
+.features{
+
+    display:grid;
+
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+
+    gap:25px;
+
+}
+
+.feature-box{
+
+    background:#ffffff;
+
+    border-radius:18px;
+
+    text-align:center;
+
+    padding:35px 20px;
+
+    box-shadow:0 10px 20px rgba(0,0,0,.08);
+
+    transition:.3s;
+
+    font-size:18px;
+
+}
+
+.feature-box:hover{
+
+    background:#6D28D9;
+
+    color:white;
+
+}
+
+.feature-box h3{
+
+    margin:15px 0;
+
+}
+
+/* ================= FORMS ================= */
+
+form{
+
+    max-width:700px;
+
+    margin:auto;
+
+    background:#fff;
+
+    padding:35px;
+
+    border-radius:20px;
+
+    box-shadow:0 10px 25px rgba(0,0,0,.08);
+
+}
+
+label{
+
+    font-weight:600;
+
+    display:block;
+
+    margin-top:18px;
+
+}
+
+input,
+select,
+textarea{
+
+    width:100%;
+
+    padding:14px;
+
+    margin-top:8px;
+
+    border:1px solid #ddd;
+
+    border-radius:10px;
+
+    font-family:Poppins;
+
+}
+
+button{
+
+    margin-top:25px;
+
+    background:#FACC15;
+
+    color:#222;
+
+    border:none;
+
+    padding:14px 30px;
+
+    border-radius:40px;
+
+    cursor:pointer;
+
+    font-weight:600;
+
+    transition:.3s;
+
+}
+
+button:hover{
+
+    background:#6D28D9;
+
+    color:white;
+
+}
+
+/* ================= TABLE ================= */
+
+table{
+
+    width:100%;
+
+    border-collapse:collapse;
+
+    margin-top:30px;
+
+    background:white;
+
+    border-radius:15px;
+
+    overflow:hidden;
+
+}
+
+th{
+
+    background:#6D28D9;
+
+    color:white;
+
+    padding:15px;
+
+}
+
+td{
+
+    padding:15px;
+
+    border-bottom:1px solid #eee;
+
+}
+
+tr:hover{
+
+    background:#faf5ff;
+
+}
+
+/* ================= FOOTER ================= */
+
+footer{
+
+    background:#6D28D9;
+
+    color:white;
+
+    text-align:center;
+
+    padding:35px;
+
+}
+
+footer h3{
+
+    color:#FACC15;
+
+    margin-bottom:15px;
+
+}
+
+/* ================= RESPONSIVE ================= */
+
+@media(max-width:768px){
+
+.hero h1{
+
+font-size:36px;
+
+}
+
+.hero p{
+
+font-size:18px;
+
+}
+
+.navbar{
+
+flex-direction:column;
+
+}
+
+nav{
+
+margin-top:15px;
+
+}
+
+nav a{
+
+margin:10px;
+
+display:inline-block;
+
+}
+
+}
+
+/* Toast Notification */
+
+.toast{
+
+    position:fixed;
+
+    top:20px;
+
+    right:20px;
+
+    background:#6D28D9;
+
+    color:white;
+
+    padding:15px 25px;
+
+    border-radius:10px;
+
+    font-weight:600;
+
+    box-shadow:0 5px 15px rgba(0,0,0,.3);
+
+    opacity:0;
+
+    visibility:hidden;
+
+    transition:all .4s ease;
+
+    z-index:9999;
+
+}
+
+.toast.show{
+
+    opacity:1;
+
+    visibility:visible;
+
+}

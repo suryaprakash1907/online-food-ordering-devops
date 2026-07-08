@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menu | Foodie's Hub</title>
+
+    <link rel="stylesheet" href="css/style.css">
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <script src="js/main.js" defer></script>
+
+</head>
+
+<body>
+
+<header class="navbar">
+
+    <div class="logo">
+        🍔 Foodie's Hub
+    </div>
+
+    <nav>
+
+        <a href="index.html">Home</a>
+
+        <a href="menu.html" class="active">Menu</a>
+
+        <a href="cart.html">
+            Cart (<span id="cartCount">0</span>)
+        </a>
+
+        <a href="php/admin-menu.php">Admin</a>
+
+    </nav>
+
+</header>
+
+<section style="padding:60px 8%;">
+
+    <h1 style="text-align:center;color:#6D28D9;">
+        Our Delicious Menu
+    </h1>
+
+    <p style="text-align:center;margin:20px 0;color:#666;">
+        Choose your favourite food and add it to your cart.
+    </p>
+
+    <div id="categories" class="categories"></div>
+
+    <br><br>
+
+    <div id="items" class="food-container"></div>
+
+</section>
+
+<footer>
+
+    <h3>Foodie's Hub</h3>
+
+    <p>Fresh • Fast • Delicious</p>
+
+    <p>© 2026 Foodie's Hub</p>
+
+</footer>
+
+<div id="toast" class="toast"></div>
+
+<script>
+
+document.addEventListener("DOMContentLoaded", () => {
+
+    loadMenuItems();
+
+    updateCartCount();
+
+});
+
+function loadMenuItems() {
+
+    fetch("php/menuAPI.php")
+
+    .then(res => res.json())
+
+    .then(data => {
+
+        const categories = document.getElementById("categories");
+
+        categories.innerHTML = "";
+
+        for (const category in data) {
+
+            const btn = document.createElement("button");
+
+            btn.className = "btn";
+
+            btn.textContent = category;
+
+            btn.style.margin = "10px";
+
+            btn.onclick = () => showCategoryItems(data[category]);
+
+            categories.appendChild(btn);
+
+        }
+
+        // Show first category automatically
+
+        const firstCategory = Object.keys(data)[0];
+
+        if (firstCategory) {
+
+            showCategoryItems(data[firstCategory]);
+
+        }
+
+    })
+
+    .catch(error => {
+
+        console.error(error);
+
+        document.getElementById("items").innerHTML =
+            "<h2>Unable to load menu.</h2>";
+
+    });
+
+}
+
+function showCategoryItems(items) {
+
+    const container = document.getElementById("items");
+
+    container.innerHTML = "";
+
+    items.forEach(item => {
+
+        container.innerHTML += `
+
+        <div class="food-card">
+
+            <img src="${item.image_url}"
+                 alt="${item.name}"
+                 onerror="this.src='images/placeholder.jpg'">
+
+            <h3>${item.name}</h3>
+
+            <p>${item.description}</p>
+
+            <h2 style="color:#6D28D9;">₹ ${item.price}</h2>
+
+            <button onclick="addToCart(${item.id},'${item.name}',${item.price})">
+
+                Add To Cart
+
+            </button>
+
+        </div>
+
+        `;
+
+    });
+
+}
+
+</script>
+
+</body>
+
+</html>

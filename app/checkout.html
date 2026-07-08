@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Checkout | Foodie's Hub</title>
+
+<link rel="stylesheet" href="css/style.css">
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<script src="js/main.js" defer></script>
+
+</head>
+
+<body>
+
+<header class="navbar">
+
+<div class="logo">
+🍔 Foodie's Hub
+</div>
+
+<nav>
+
+<a href="index.html">Home</a>
+
+<a href="menu.html">Menu</a>
+
+<a href="cart.html">Cart</a>
+
+<a href="php/admin-menu.php">Admin</a>
+
+</nav>
+
+</header>
+
+<section style="padding:60px 8%;">
+
+<h1 style="text-align:center;color:#6D28D9;margin-bottom:40px;">
+
+Checkout
+
+</h1>
+
+<form id="checkoutForm">
+
+<label>Customer Name</label>
+
+<input
+type="text"
+id="customerName"
+required>
+
+<label>Mobile Number</label>
+
+<input
+type="text"
+id="phone"
+required>
+
+<label>Delivery Address</label>
+
+<textarea
+id="address"
+rows="4"
+required></textarea>
+
+<label>Payment Method</label>
+
+<select id="paymentMethod">
+
+<option value="Cash on Delivery">
+
+Cash on Delivery
+
+</option>
+
+<option value="UPI">
+
+UPI
+
+</option>
+
+<option value="Credit Card">
+
+Credit Card
+
+</option>
+
+</select>
+
+<button type="submit">
+
+Place Order
+
+</button>
+
+</form>
+
+</section>
+
+<footer>
+
+<h3>Foodie's Hub</h3>
+
+<p>Fresh • Fast • Delicious</p>
+
+<p>© 2026 Foodie's Hub</p>
+
+</footer>
+
+<script>
+
+document.getElementById("checkoutForm").addEventListener("submit",function(e){
+
+e.preventDefault();
+
+const cart=JSON.parse(localStorage.getItem("cart"))||[];
+
+if(cart.length===0){
+
+showToast("Your cart is empty.");
+
+return;
+
+}
+
+const order={
+
+customerName:document.getElementById("customerName").value,
+
+phone:document.getElementById("phone").value,
+
+address:document.getElementById("address").value,
+
+paymentMethod:document.getElementById("paymentMethod").value,
+
+items:cart
+
+};
+
+/* Backend Integration */
+
+fetch("php/order.php",{
+
+method:"POST",
+
+headers:{
+
+"Content-Type":"application/json"
+
+},
+
+body:JSON.stringify(order)
+
+})
+
+.then(response=>response.text())
+
+.then(data=>{
+
+localStorage.removeItem("cart");
+
+window.location.href="order-confirmation.html";
+
+})
+
+.catch(error=>{
+
+console.error(error);
+
+showToast("Failed to place order.");
+
+});
+
+});
+
+</script>
+<div id="toast" class="toast"></div>
+</body>
+
+</html>

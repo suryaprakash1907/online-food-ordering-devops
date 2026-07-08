@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Shopping Cart | Foodie's Hub</title>
+
+<link rel="stylesheet" href="css/style.css">
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<script src="js/main.js" defer></script>
+
+</head>
+
+<body>
+
+<header class="navbar">
+
+<div class="logo">
+
+🍔 Foodie's Hub
+
+</div>
+
+<nav>
+
+<a href="index.html">Home</a>
+
+<a href="menu.html">Menu</a>
+
+<a href="cart.html" class="active">
+
+Cart (<span id="cartCount">0</span>)
+
+</a>
+
+<a href="php/admin-menu.php">Admin</a>
+
+</nav>
+
+</header>
+
+<section style="padding:60px 8%;">
+
+<h1 style="text-align:center;color:#6D28D9;margin-bottom:40px;">
+
+🛒 Your Shopping Cart
+
+</h1>
+
+<div id="cartItems">
+
+</div>
+
+<h2 style="margin-top:30px;text-align:right;">
+
+Total :
+
+<span style="color:#6D28D9;">
+
+₹ <span id="totalPrice">0.00</span>
+
+</span>
+
+</h2>
+
+<div style="text-align:right;margin-top:25px;">
+
+<button onclick="checkout()">
+
+Proceed to Checkout
+
+</button>
+
+</div>
+
+</section>
+
+<footer>
+
+<h3>Foodie's Hub</h3>
+
+<p>Fresh • Fast • Delicious</p>
+
+<p>© 2026 Foodie's Hub</p>
+
+</footer>
+
+<script>
+
+document.addEventListener("DOMContentLoaded",function(){
+
+loadCart();
+
+updateCartCount();
+
+});
+
+function loadCart(){
+
+const cart=JSON.parse(localStorage.getItem("cart"))||[];
+
+const cartItems=document.getElementById("cartItems");
+
+cartItems.innerHTML="";
+
+let total=0;
+
+if(cart.length===0){
+
+cartItems.innerHTML="<h2>Your cart is empty.</h2>";
+
+document.getElementById("totalPrice").innerText="0.00";
+
+return;
+
+}
+
+cart.forEach((item,index)=>{
+
+total+=item.price*item.quantity;
+
+cartItems.innerHTML+=`
+
+<div class="food-card">
+
+<h2>${item.name}</h2>
+
+<p>Price : ₹ ${item.price}</p>
+
+<p>
+
+Quantity :
+
+<button onclick="changeQty(${index},-1)">-</button>
+
+<b style="margin:0 10px;">${item.quantity}</b>
+
+<button onclick="changeQty(${index},1)">+</button>
+
+</p>
+
+<h3>
+
+Subtotal : ₹ ${(item.price*item.quantity).toFixed(2)}
+
+</h3>
+
+<button onclick="removeItem(${index})">
+
+Remove
+
+</button>
+
+</div>
+
+`;
+
+});
+
+document.getElementById("totalPrice").innerText=total.toFixed(2);
+
+}
+
+function changeQty(index,value){
+
+let cart=JSON.parse(localStorage.getItem("cart"))||[];
+
+cart[index].quantity+=value;
+
+if(cart[index].quantity<=0){
+
+cart.splice(index,1);
+
+}
+
+localStorage.setItem("cart",JSON.stringify(cart));
+
+loadCart();
+
+updateCartCount();
+
+}
+
+function removeItem(index){
+
+let cart=JSON.parse(localStorage.getItem("cart"))||[];
+
+cart.splice(index,1);
+
+localStorage.setItem("cart",JSON.stringify(cart));
+
+loadCart();
+
+updateCartCount();
+
+}
+
+function updateCartCount(){
+
+let cart=JSON.parse(localStorage.getItem("cart"))||[];
+
+let count=0;
+
+cart.forEach(item=>count+=item.quantity);
+
+document.getElementById("cartCount").innerText=count;
+
+}
+
+function checkout(){
+
+let cart=JSON.parse(localStorage.getItem("cart"))||[];
+
+if(cart.length==0){
+
+showToast("Your cart is empty.");
+
+return;
+
+}
+
+window.location.href="checkout.html";
+
+}
+
+</script>
+<div id="toast" class="toast"></div>
+</body>
+
+</html>
