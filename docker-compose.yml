@@ -1,0 +1,61 @@
+version: '3.9'
+
+services:
+
+  web:
+
+    build: .
+
+    container_name: food-app
+
+    ports:
+
+      - "8080:80"
+
+    depends_on:
+
+      - mysql
+
+    volumes:
+
+      - ./app:/var/www/html
+
+    networks:
+
+      - food-network
+
+  mysql:
+
+    image: mysql:8.0
+
+    container_name: mysql-db
+
+    restart: always
+
+    environment:
+
+      MYSQL_ROOT_PASSWORD: root123
+
+      MYSQL_DATABASE: myprojectdb
+
+    ports:
+
+      - "3306:3306"
+
+    volumes:
+
+      - mysql-data:/var/lib/mysql
+
+      - ./app/schema.sql:/docker-entrypoint-initdb.d/schema.sql
+
+    networks:
+
+      - food-network
+
+networks:
+
+  food-network:
+
+volumes:
+
+  mysql-data:

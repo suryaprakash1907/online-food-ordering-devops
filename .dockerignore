@@ -1,0 +1,7 @@
+.git
+.gitignore
+docs
+terraform
+jenkins
+scripts
+README.md
