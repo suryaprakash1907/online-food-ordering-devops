@@ -57,6 +57,31 @@ pipeline {
         '''
     }
 }
+
+	stage('Docker Login') {
+    steps {
+        withCredentials([usernamePassword(
+            credentialsId: 'dockerhub',
+            usernameVariable: 'DOCKER_USER',
+            passwordVariable: 'DOCKER_PASS'
+        )]) {
+            sh '''
+            echo "$DOCKER_PASS" | docker login -u "$DOCKER_USER" --password-stdin
+            '''
+        }
+    }
+}
+
+
+	stage('Push Docker Image') {
+    steps {
+        sh '''
+            docker tag food-app:latest suryaprakash2007/food-app:latest
+            docker push suryaprakash2007/food-app:latest
+        '''
+    }
+}
+
         stage('Docker Images') {
             steps {
                 sh 'docker images'
