@@ -46,6 +46,17 @@ pipeline {
             }
         }
 
+
+	stage('Trivy Scan') {
+    steps {
+        sh '''
+        trivy image \
+        --severity HIGH,CRITICAL \
+        --no-progress \
+        food-app:latest | tee trivy-report.txt
+        '''
+    }
+}
         stage('Docker Images') {
             steps {
                 sh 'docker images'
