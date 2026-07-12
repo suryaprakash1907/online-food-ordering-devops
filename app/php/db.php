@@ -1,6 +1,6 @@
 <?php
 
-$servername = "172.17.0.3";
+$servername = "mysql";
 $username = "root";
 $password = "root";
 $dbname = "myprojectdb";
